@@ -163,14 +163,17 @@ export default function PlayPage({
 
     recognition.onstart = () => setIsListening(true);
 
-    recognition.onresult = (e) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recognition.onresult = (e: any) => {
       const transcript = Array.from(e.results)
-        .map((r) => r[0].transcript)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((r: any) => r[0].transcript)
         .join("");
       setInputText(transcript);
     };
 
-    recognition.onerror = (e) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recognition.onerror = (e: any) => {
       setVoiceError(e.error === "not-allowed" ? "Microphone access denied." : `Voice error: ${e.error}`);
       setIsListening(false);
     };
