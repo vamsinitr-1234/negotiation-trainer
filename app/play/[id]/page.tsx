@@ -39,7 +39,8 @@ export default function PlayPage({
   const [startTime, setStartTime] = useState<number>(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const moveCountRef = useRef(0);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null);
   const aiVsAiRef = useRef(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
