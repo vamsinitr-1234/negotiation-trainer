@@ -7,10 +7,10 @@ export async function PATCH(
   { params }: { params: Promise<{ sessionId: string }> }
 ) {
   const { sessionId } = await params;
-  const existing = getSession(sessionId);
+  const existing = await getSession(sessionId);
   if (!existing) return Response.json({ error: "Session not found" }, { status: 404 });
   const patch = await req.json();
-  upsertSession({ ...existing, ...patch });
+  await upsertSession({ ...existing, ...patch });
   return Response.json({ ok: true });
 }
 
@@ -20,7 +20,7 @@ export async function GET(
   { params }: { params: Promise<{ sessionId: string }> }
 ) {
   const { sessionId } = await params;
-  const session = getSession(sessionId);
+  const session = await getSession(sessionId);
   if (!session) return Response.json({ error: "Not found" }, { status: 404 });
   return Response.json(session);
 }
@@ -31,7 +31,7 @@ export async function DELETE(
   { params }: { params: Promise<{ sessionId: string }> }
 ) {
   const { sessionId } = await params;
-  const deleted = deleteSession(sessionId);
+  const deleted = await deleteSession(sessionId);
   if (!deleted) return Response.json({ error: "Not found" }, { status: 404 });
   return Response.json({ ok: true });
 }

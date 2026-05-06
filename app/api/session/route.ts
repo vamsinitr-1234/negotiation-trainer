@@ -6,20 +6,20 @@ import type { PlayerSession } from "@/lib/types";
 export async function GET(req: NextRequest) {
   const scenario = req.nextUrl.searchParams.get("scenario");
   const sessions = scenario
-    ? getSessionsByScenario(scenario)
-    : getAllSessions();
+    ? await getSessionsByScenario(scenario)
+    : await getAllSessions();
   return Response.json(sessions);
 }
 
 // POST /api/session  — create a new session
 export async function POST(req: NextRequest) {
   const body: PlayerSession = await req.json();
-  upsertSession(body);
+  await upsertSession(body);
   return Response.json({ ok: true });
 }
 
 // DELETE /api/session  — wipe all sessions
 export async function DELETE() {
-  clearAllSessions();
+  await clearAllSessions();
   return Response.json({ ok: true });
 }
